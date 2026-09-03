@@ -11,48 +11,60 @@ interface EvaluationSectionProps {
 }
 
 export function EvaluationSection({ evaluationDocs, onPreview }: EvaluationSectionProps) {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
 
+  const isEng = lang === 'en';
+
+  // Dynamic Rubric Document: switch between eval_rubric(eng).pdf and eval_rubric(kor).pdf
   const rubricDoc: DocumentItem = evaluationDocs.find(
     (d) =>
       d.type === 'pdf' &&
-      (d.id === 'eval-rubric-standard' || d.id === 'eval-rubric-pdf' || d.evaluationDocType === 'rubric' || d.subtype === 'rubric')
+      (isEng
+        ? d.id === 'eval-rubric-eng' || d.fileUrl?.includes('eval_rubric(eng)')
+        : d.id === 'eval-rubric-kor' || d.fileUrl?.includes('eval_rubric(kor)'))
   ) || {
-    id: 'eval-rubric-standard',
-    title: '2026 ONLYONE Fair 평가 기준 상세',
-    subtitle: '공식 100점 만점 심사 척도 및 영역별 배점 기준',
+    id: isEng ? 'eval-rubric-eng' : 'eval-rubric-kor',
+    title: isEng ? '2026 ONLYONE Fair Evaluation Criteria' : '2026 ONLYONE Fair 평가 기준 상세',
+    subtitle: isEng
+      ? 'Official 100-Point Scoring Rubric & Evaluation Dimensions'
+      : '공식 100점 만점 심사 척도 및 영역별 배점 기준',
     type: 'pdf',
     category: 'evaluation',
     subtype: 'rubric',
     evaluationDocType: 'rubric',
-    fileUrl: '/documents/eval/eval_rubric.pdf',
-    badgeText: '심사 평가 기준표',
+    fileUrl: isEng ? '/documents/eval/eval_rubric(eng).pdf' : '/documents/eval/eval_rubric(kor).pdf',
+    badgeText: isEng ? 'Evaluation Criteria' : '심사 평가 기준표',
     status: 'available',
     formatTag: 'PDF',
-    language: 'KO',
-    fileSize: '76 KB',
-    originalFileName: 'eval_rubric.pdf',
+    language: isEng ? 'EN' : 'KO',
+    fileSize: isEng ? '57 KB' : '76 KB',
+    originalFileName: isEng ? 'eval_rubric(eng).pdf' : 'eval_rubric(kor).pdf',
     date: '2026.09.01',
-    description: 'ONLYONE 차별성(30점), 시장성(25점), 실행 타당성(25점), 발표 완성도(20점) 4대 기준표',
+    description: isEng
+      ? 'ONLYONE Differentiation (30 pts), Market Viability (25 pts), Feasibility (25 pts), Presentation Quality (20 pts)'
+      : 'ONLYONE 차별성(30점), 시장성(25점), 실행 타당성(25점), 발표 완성도(20점) 4대 기준표',
   };
 
+  // Evaluation Guide Document
   const guideDoc: DocumentItem = evaluationDocs.find(
     (d) =>
       d.type === 'pdf' &&
       (d.id === 'eval-guide-manual' || d.id === 'eval-guide-pdf' || d.evaluationDocType === 'guide' || d.subtype === 'guide')
   ) || {
     id: 'eval-guide-manual',
-    title: '2026 ONLYONE Fair 평가 가이드',
-    subtitle: '심사위원 평가 진행 및 시스템 이용 가이드',
+    title: isEng ? '2026 ONLYONE Fair Evaluation Guide' : '2026 ONLYONE Fair 평가 가이드',
+    subtitle: isEng
+      ? 'Judges Evaluation Protocol & System Operations Manual'
+      : '심사위원 평가 진행 및 시스템 이용 가이드',
     type: 'pdf',
     category: 'evaluation',
     subtype: 'guide',
     evaluationDocType: 'guide',
     fileUrl: '/documents/eval/eval_guide.pdf',
-    badgeText: '평가 가이드',
+    badgeText: isEng ? 'Evaluation Guide' : '평가 가이드',
     status: 'available',
     formatTag: 'PDF',
-    language: 'KO',
+    language: isEng ? 'EN' : 'KO',
     fileSize: '470 KB',
     originalFileName: 'eval_guide.pdf',
     date: '2026.09.01',

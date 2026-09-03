@@ -560,24 +560,43 @@ export function getInitialCatalogDocuments(): DocumentItem[] {
     description: '심사위원 평가 점수 및 의견을 실시간 입력하는 온라인 심사 포털입니다.',
   });
 
-  // 2. Evaluation Rubric Standard PDF (Direct mapping to /documents/eval/eval_rubric.pdf)
+  // 2. Evaluation Rubric Standard PDF (Bilingual support)
   docs.push({
-    id: 'eval-rubric-standard',
+    id: 'eval-rubric-kor',
     title: '2026 ONLYONE Fair 평가 기준 상세',
     subtitle: '공식 100점 만점 심사 척도 및 영역별 배점 기준',
     type: 'pdf',
     category: 'evaluation',
     subtype: 'rubric',
     evaluationDocType: 'rubric',
-    fileUrl: '/documents/eval/eval_rubric.pdf',
+    fileUrl: '/documents/eval/eval_rubric(kor).pdf',
     badgeText: '심사 평가 기준표',
     status: 'available',
     formatTag: 'PDF',
     language: 'KO',
     fileSize: '76 KB',
-    originalFileName: 'eval_rubric.pdf',
+    originalFileName: 'eval_rubric(kor).pdf',
     date: '2026.09.01',
     description: 'ONLYONE 차별성(30점), 시장성(25점), 실행 타당성(25점), 발표 완성도(20점) 4대 기준표',
+  });
+
+  docs.push({
+    id: 'eval-rubric-eng',
+    title: '2026 ONLYONE Fair Evaluation Criteria',
+    subtitle: 'Official 100-Point Scoring Rubric & Evaluation Dimensions',
+    type: 'pdf',
+    category: 'evaluation',
+    subtype: 'rubric',
+    evaluationDocType: 'rubric',
+    fileUrl: '/documents/eval/eval_rubric(eng).pdf',
+    badgeText: 'Evaluation Criteria',
+    status: 'available',
+    formatTag: 'PDF',
+    language: 'EN',
+    fileSize: '57 KB',
+    originalFileName: 'eval_rubric(eng).pdf',
+    date: '2026.09.01',
+    description: 'ONLYONE Differentiation (30 pts), Market Viability (25 pts), Feasibility (25 pts), Presentation Quality (20 pts)',
   });
 
   // 3. Evaluation Guide PDF (Direct mapping to /documents/eval/eval_guide.pdf)
