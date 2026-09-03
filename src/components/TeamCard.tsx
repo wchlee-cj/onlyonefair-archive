@@ -1,7 +1,6 @@
 import React from 'react';
-import { Eye, Download, FileText, Presentation } from 'lucide-react';
+import { Eye, FileText, Presentation } from 'lucide-react';
 import { TeamBrochureData, DocumentItem } from '../types';
-import { openDocumentInNewTab, downloadDocumentPdf } from '../utils/pdfGenerator';
 import { useLanguage } from '../context/LanguageContext';
 
 export interface TeamCardProps {
@@ -104,16 +103,16 @@ export const TeamCard: React.FC<TeamCardProps> = ({ team, onPreview }) => {
         </p>
       </div>
 
-      {/* Right: Integrated 3 Items: Brochure(kor/eng) + Presentation(kor) + Presentation(eng) */}
+      {/* Right: Integrated 3 Items: Brochure(KOR/ENG) + Presentation(KOR) + Presentation(ENG) */}
       <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 pt-2 xl:pt-0 border-t xl:border-t-0 border-slate-200/60 flex-shrink-0">
-        {/* 1. 국·영문 브로셔 / Brochure(kor/eng) */}
-        <div className="flex items-center justify-between p-2 sm:p-2.5 bg-white border border-slate-200 rounded hover:bg-blue-50/50 hover:border-blue-300 transition-colors group flex-1 sm:flex-initial">
-          <div
-            id={`btn-open-brochure-${team.teamNumber}`}
-            onClick={() => openDocumentInNewTab(brochureDocItem)}
-            className="flex items-center gap-2 cursor-pointer pr-1.5"
-            title={`${t.archive.brochureBtn} - ${t.archive.openInNewTab}`}
-          >
+        {/* 1. 국·영문 브로셔 / Brochure(KOR/ENG) */}
+        <div
+          id={`btn-open-brochure-${team.teamNumber}`}
+          onClick={() => onPreview(brochureDocItem)}
+          className="flex items-center justify-between p-2 sm:p-2.5 bg-white border border-slate-200 rounded hover:bg-blue-50/50 hover:border-blue-300 transition-colors group flex-1 sm:flex-initial cursor-pointer"
+          title={`${t.archive.brochureBtn} - ${t.archive.preview}`}
+        >
+          <div className="flex items-center gap-2 pr-2">
             <div className="bg-blue-100 p-1.5 rounded text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
               <FileText className="w-4 h-4" />
             </div>
@@ -122,38 +121,19 @@ export const TeamCard: React.FC<TeamCardProps> = ({ team, onPreview }) => {
             </span>
           </div>
 
-          <div className="flex items-center space-x-0.5 border-l border-slate-200 pl-1.5 flex-shrink-0">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onPreview(brochureDocItem);
-              }}
-              className="p-1 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded transition-colors cursor-pointer"
-              title={t.archive.preview}
-            >
-              <Eye className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                downloadDocumentPdf(brochureDocItem);
-              }}
-              className="p-1 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded transition-colors cursor-pointer"
-              title={t.archive.download}
-            >
-              <Download className="w-3.5 h-3.5" />
-            </button>
+          <div className="p-1 text-slate-400 group-hover:text-blue-600 rounded transition-colors flex-shrink-0">
+            <Eye className="w-3.5 h-3.5" />
           </div>
         </div>
 
-        {/* 2. 발표 자료(국문) / Presentation(kor) */}
-        <div className="flex items-center justify-between p-2 sm:p-2.5 bg-amber-50/60 border border-amber-200 rounded hover:bg-amber-100/60 hover:border-amber-300 transition-colors group flex-1 sm:flex-initial">
-          <div
-            id={`btn-open-pt-kor-${team.teamNumber}`}
-            onClick={() => openDocumentInNewTab(ptKorDocItem)}
-            className="flex items-center gap-2 cursor-pointer pr-1.5"
-            title={`${t.archive.ptKorBtn} - ${t.archive.openInNewTab}`}
-          >
+        {/* 2. 발표 자료(국문) / Presentation(KOR) */}
+        <div
+          id={`btn-open-pt-kor-${team.teamNumber}`}
+          onClick={() => onPreview(ptKorDocItem)}
+          className="flex items-center justify-between p-2 sm:p-2.5 bg-amber-50/60 border border-amber-200 rounded hover:bg-amber-100/60 hover:border-amber-300 transition-colors group flex-1 sm:flex-initial cursor-pointer"
+          title={`${t.archive.ptKorBtn} - ${t.archive.preview}`}
+        >
+          <div className="flex items-center gap-2 pr-2">
             <div className="bg-amber-100 p-1.5 rounded text-amber-700 group-hover:bg-amber-600 group-hover:text-white transition-colors">
               <Presentation className="w-4 h-4" />
             </div>
@@ -162,38 +142,19 @@ export const TeamCard: React.FC<TeamCardProps> = ({ team, onPreview }) => {
             </span>
           </div>
 
-          <div className="flex items-center space-x-0.5 border-l border-amber-200 pl-1.5 flex-shrink-0">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onPreview(ptKorDocItem);
-              }}
-              className="p-1 text-amber-800/70 hover:text-amber-950 hover:bg-amber-200/50 rounded transition-colors cursor-pointer"
-              title={t.archive.preview}
-            >
-              <Eye className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                downloadDocumentPdf(ptKorDocItem);
-              }}
-              className="p-1 text-amber-800/70 hover:text-amber-950 hover:bg-amber-200/50 rounded transition-colors cursor-pointer"
-              title={t.archive.download}
-            >
-              <Download className="w-3.5 h-3.5" />
-            </button>
+          <div className="p-1 text-amber-800/60 group-hover:text-amber-900 rounded transition-colors flex-shrink-0">
+            <Eye className="w-3.5 h-3.5" />
           </div>
         </div>
 
-        {/* 3. 발표 자료(영문) / Presentation(eng) */}
-        <div className="flex items-center justify-between p-2 sm:p-2.5 bg-indigo-50/60 border border-indigo-200 rounded hover:bg-indigo-100/60 hover:border-indigo-300 transition-colors group flex-1 sm:flex-initial">
-          <div
-            id={`btn-open-pt-eng-${team.teamNumber}`}
-            onClick={() => openDocumentInNewTab(ptEngDocItem)}
-            className="flex items-center gap-2 cursor-pointer pr-1.5"
-            title={`${t.archive.ptEngBtn} - ${t.archive.openInNewTab}`}
-          >
+        {/* 3. 발표 자료(영문) / Presentation(ENG) */}
+        <div
+          id={`btn-open-pt-eng-${team.teamNumber}`}
+          onClick={() => onPreview(ptEngDocItem)}
+          className="flex items-center justify-between p-2 sm:p-2.5 bg-indigo-50/60 border border-indigo-200 rounded hover:bg-indigo-100/60 hover:border-indigo-300 transition-colors group flex-1 sm:flex-initial cursor-pointer"
+          title={`${t.archive.ptEngBtn} - ${t.archive.preview}`}
+        >
+          <div className="flex items-center gap-2 pr-2">
             <div className="bg-indigo-100 p-1.5 rounded text-indigo-700 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
               <Presentation className="w-4 h-4" />
             </div>
@@ -202,27 +163,8 @@ export const TeamCard: React.FC<TeamCardProps> = ({ team, onPreview }) => {
             </span>
           </div>
 
-          <div className="flex items-center space-x-0.5 border-l border-indigo-200 pl-1.5 flex-shrink-0">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onPreview(ptEngDocItem);
-              }}
-              className="p-1 text-indigo-800/70 hover:text-indigo-950 hover:bg-indigo-200/50 rounded transition-colors cursor-pointer"
-              title={t.archive.preview}
-            >
-              <Eye className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                downloadDocumentPdf(ptEngDocItem);
-              }}
-              className="p-1 text-indigo-800/70 hover:text-indigo-950 hover:bg-indigo-200/50 rounded transition-colors cursor-pointer"
-              title={t.archive.download}
-            >
-              <Download className="w-3.5 h-3.5" />
-            </button>
+          <div className="p-1 text-indigo-800/60 group-hover:text-indigo-900 rounded transition-colors flex-shrink-0">
+            <Eye className="w-3.5 h-3.5" />
           </div>
         </div>
       </div>

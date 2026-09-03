@@ -1,8 +1,7 @@
 import React from 'react';
-import { ExternalLink, CheckCircle2, FileText, Download, Eye, Sparkles } from 'lucide-react';
+import { ExternalLink, CheckCircle2, FileText, Eye, Sparkles } from 'lucide-react';
 import { DocumentItem } from '../types';
 import { EVALUATION_SYSTEM_LINK } from '../data/teamData';
-import { openDocumentInNewTab, downloadDocumentPdf } from '../utils/pdfGenerator';
 import { useLanguage } from '../context/LanguageContext';
 
 interface EvaluationSectionProps {
@@ -112,13 +111,14 @@ export function EvaluationSection({ evaluationDocs, onPreview }: EvaluationSecti
           </div>
         </a>
 
-        {/* 2. Evaluation Criteria (평가 기준 상세) PDF Button */}
-        <div className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded hover:bg-red-50/50 hover:border-red-300 transition-colors group">
-          <div
-            onClick={() => openDocumentInNewTab(rubricDoc)}
-            className="flex items-center gap-3 flex-1 cursor-pointer min-w-0"
-            title={t.evaluation.openInNewTab}
-          >
+        {/* 2. Evaluation Criteria (평가 기준 상세) Viewer Button */}
+        <div
+          id="btn-eval-rubric"
+          onClick={() => onPreview(rubricDoc)}
+          className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded hover:bg-red-50/50 hover:border-red-300 transition-colors group cursor-pointer"
+          title={`${t.evaluation.rubricTitle} - ${t.evaluation.preview}`}
+        >
+          <div className="flex items-center gap-3 flex-1 min-w-0">
             <div className="bg-red-100 p-2 rounded text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
               <FileText className="w-4 h-4" />
             </div>
@@ -128,37 +128,19 @@ export function EvaluationSection({ evaluationDocs, onPreview }: EvaluationSecti
               </p>
             </div>
           </div>
-          <div className="flex items-center space-x-1 flex-shrink-0">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onPreview(rubricDoc);
-              }}
-              className="p-1 text-slate-500 hover:text-slate-800 hover:bg-white rounded cursor-pointer"
-              title={t.evaluation.preview}
-            >
-              <Eye className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                downloadDocumentPdf(rubricDoc);
-              }}
-              className="p-1 text-slate-500 hover:text-slate-800 hover:bg-white rounded cursor-pointer"
-              title={t.evaluation.download}
-            >
-              <Download className="w-3.5 h-3.5" />
-            </button>
+          <div className="p-1 text-slate-400 group-hover:text-red-600 rounded transition-colors flex-shrink-0">
+            <Eye className="w-4 h-4" />
           </div>
         </div>
 
-        {/* 3. Evaluation Guide (평가 가이드) PDF */}
-        <div className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded hover:bg-amber-50/50 hover:border-amber-300 transition-colors group">
-          <div
-            onClick={() => openDocumentInNewTab(guideDoc)}
-            className="flex items-center gap-3 flex-1 cursor-pointer min-w-0"
-            title={t.evaluation.openInNewTab}
-          >
+        {/* 3. Evaluation Guide (평가 가이드) Viewer Button */}
+        <div
+          id="btn-eval-guide"
+          onClick={() => onPreview(guideDoc)}
+          className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded hover:bg-amber-50/50 hover:border-amber-300 transition-colors group cursor-pointer"
+          title={`${t.evaluation.guideTitle} - ${t.evaluation.preview}`}
+        >
+          <div className="flex items-center gap-3 flex-1 min-w-0">
             <div className="bg-amber-100 p-2 rounded text-amber-700 group-hover:bg-amber-600 group-hover:text-white transition-colors">
               <Sparkles className="w-4 h-4" />
             </div>
@@ -168,27 +150,8 @@ export function EvaluationSection({ evaluationDocs, onPreview }: EvaluationSecti
               </p>
             </div>
           </div>
-          <div className="flex items-center space-x-1 flex-shrink-0">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onPreview(guideDoc);
-              }}
-              className="p-1 text-slate-500 hover:text-slate-800 hover:bg-white rounded cursor-pointer"
-              title={t.evaluation.preview}
-            >
-              <Eye className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                downloadDocumentPdf(guideDoc);
-              }}
-              className="p-1 text-slate-500 hover:text-slate-800 hover:bg-white rounded cursor-pointer"
-              title={t.evaluation.download}
-            >
-              <Download className="w-3.5 h-3.5" />
-            </button>
+          <div className="p-1 text-slate-400 group-hover:text-amber-700 rounded transition-colors flex-shrink-0">
+            <Eye className="w-4 h-4" />
           </div>
         </div>
       </div>
