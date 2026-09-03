@@ -593,7 +593,7 @@ export function getInitialCatalogDocuments(): DocumentItem[] {
     status: 'available',
     formatTag: 'PDF',
     language: 'EN',
-    fileSize: '57 KB',
+    fileSize: '50 KB',
     originalFileName: 'eval_rubric(eng).pdf',
     date: '2026.09.01',
     description: 'ONLYONE Differentiation (30 pts), Market Viability (25 pts), Feasibility (25 pts), Presentation Quality (20 pts)',

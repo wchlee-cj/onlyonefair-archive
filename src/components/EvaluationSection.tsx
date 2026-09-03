@@ -37,7 +37,7 @@ export function EvaluationSection({ evaluationDocs, onPreview }: EvaluationSecti
     status: 'available',
     formatTag: 'PDF',
     language: isEng ? 'EN' : 'KO',
-    fileSize: isEng ? '57 KB' : '76 KB',
+    fileSize: isEng ? '50 KB' : '76 KB',
     originalFileName: isEng ? 'eval_rubric(eng).pdf' : 'eval_rubric(kor).pdf',
     date: '2026.09.01',
     description: isEng
