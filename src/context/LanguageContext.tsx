@@ -159,21 +159,18 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Always default to 'ko' (Korean) upon initial access
   const [lang, setLangState] = useState<Language>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('onlyone_fair_lang');
-      if (saved === 'ko' || saved === 'en') {
-        return saved;
-      }
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryLang = urlParams.get('lang');
+      if (queryLang === 'en') return 'en';
     }
     return 'ko';
   });
 
   const setLang = (newLang: Language) => {
     setLangState(newLang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('onlyone_fair_lang', newLang);
-    }
   };
 
   useEffect(() => {
