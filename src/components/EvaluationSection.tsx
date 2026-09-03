@@ -44,13 +44,15 @@ export function EvaluationSection({ evaluationDocs, onPreview }: EvaluationSecti
       : 'ONLYONE 차별성(30점), 시장성(25점), 실행 타당성(25점), 발표 완성도(20점) 4대 기준표',
   };
 
-  // Evaluation Guide Document
+  // Dynamic Guide Document: switch between eval_guide(eng).pdf and eval_guide(kor).pdf
   const guideDoc: DocumentItem = evaluationDocs.find(
     (d) =>
       d.type === 'pdf' &&
-      (d.id === 'eval-guide-manual' || d.id === 'eval-guide-pdf' || d.evaluationDocType === 'guide' || d.subtype === 'guide')
+      (isEng
+        ? d.id === 'eval-guide-eng' || d.fileUrl?.includes('eval_guide(eng)')
+        : d.id === 'eval-guide-kor' || d.fileUrl?.includes('eval_guide(kor)'))
   ) || {
-    id: 'eval-guide-manual',
+    id: isEng ? 'eval-guide-eng' : 'eval-guide-kor',
     title: isEng ? '2026 ONLYONE Fair Evaluation Guide' : '2026 ONLYONE Fair 평가 가이드',
     subtitle: isEng
       ? 'Judges Evaluation Protocol & System Operations Manual'
@@ -59,15 +61,17 @@ export function EvaluationSection({ evaluationDocs, onPreview }: EvaluationSecti
     category: 'evaluation',
     subtype: 'guide',
     evaluationDocType: 'guide',
-    fileUrl: '/documents/eval/eval_guide.pdf',
+    fileUrl: isEng ? '/documents/eval/eval_guide(eng).pdf' : '/documents/eval/eval_guide(kor).pdf',
     badgeText: isEng ? 'Evaluation Guide' : '평가 가이드',
     status: 'available',
     formatTag: 'PDF',
     language: isEng ? 'EN' : 'KO',
-    fileSize: '470 KB',
-    originalFileName: 'eval_guide.pdf',
+    fileSize: isEng ? '505 KB' : '535 KB',
+    originalFileName: isEng ? 'eval_guide(eng).pdf' : 'eval_guide(kor).pdf',
     date: '2026.09.01',
-    description: '심사위원 로그인 방법, 조별 15분 타임테이블(8분/5분/2분) 및 점수 확정 절차',
+    description: isEng
+      ? 'Judge login instructions, 15-minute presentation timetable (8m pitch/5m Q&A/2m scoring) and final submission flow'
+      : '심사위원 로그인 방법, 조별 15분 타임테이블(8분/5분/2분) 및 점수 확정 절차',
   };
 
   return (

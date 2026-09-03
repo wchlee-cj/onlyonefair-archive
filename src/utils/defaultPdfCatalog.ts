@@ -599,24 +599,43 @@ export function getInitialCatalogDocuments(): DocumentItem[] {
     description: 'ONLYONE Differentiation (30 pts), Market Viability (25 pts), Feasibility (25 pts), Presentation Quality (20 pts)',
   });
 
-  // 3. Evaluation Guide PDF (Direct mapping to /documents/eval/eval_guide.pdf)
+  // 3. Evaluation Guide PDF (Bilingual support)
   docs.push({
-    id: 'eval-guide-manual',
+    id: 'eval-guide-kor',
     title: '2026 ONLYONE Fair 평가 가이드',
     subtitle: '심사위원 평가 진행 및 시스템 이용 가이드',
     type: 'pdf',
     category: 'evaluation',
     subtype: 'guide',
     evaluationDocType: 'guide',
-    fileUrl: '/documents/eval/eval_guide.pdf',
+    fileUrl: '/documents/eval/eval_guide(kor).pdf',
     badgeText: '평가 가이드',
     status: 'available',
     formatTag: 'PDF',
     language: 'KO',
-    fileSize: '470 KB',
-    originalFileName: 'eval_guide.pdf',
+    fileSize: '535 KB',
+    originalFileName: 'eval_guide(kor).pdf',
     date: '2026.09.01',
     description: '심사위원 로그인 방법, 조별 15분 타임테이블(8분/5분/2분) 및 점수 확정 절차',
+  });
+
+  docs.push({
+    id: 'eval-guide-eng',
+    title: '2026 ONLYONE Fair Evaluation Guide',
+    subtitle: 'Judges Evaluation Protocol & System Operations Manual',
+    type: 'pdf',
+    category: 'evaluation',
+    subtype: 'guide',
+    evaluationDocType: 'guide',
+    fileUrl: '/documents/eval/eval_guide(eng).pdf',
+    badgeText: 'Evaluation Guide',
+    status: 'available',
+    formatTag: 'PDF',
+    language: 'EN',
+    fileSize: '505 KB',
+    originalFileName: 'eval_guide(eng).pdf',
+    date: '2026.09.01',
+    description: 'Judge login instructions, 15-minute presentation timetable (8m pitch/5m Q&A/2m scoring) and final submission flow',
   });
 
   // 4. Teams 1~7 Documents
