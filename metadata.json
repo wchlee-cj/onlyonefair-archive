@@ -1,0 +1,7 @@
+{
+  "name": "CJ ONLYONE Fair 문서 및 평가 포털",
+  "description": "1~7조 발표 브로셔, 발표 자료 및 평가 시스템 링크를 바로 확인하고 브라우저 새 탭에서 열람할 수 있는 통합 문서 포털",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

@@ -1,0 +1,185 @@
+import React from 'react';
+import { ExternalLink, CheckCircle2, FileText, Download, Eye, Sparkles } from 'lucide-react';
+import { DocumentItem } from '../types';
+import { EVALUATION_SYSTEM_LINK } from '../data/teamData';
+import { openDocumentInNewTab, downloadDocumentPdf } from '../utils/pdfGenerator';
+import { useLanguage } from '../context/LanguageContext';
+
+interface EvaluationSectionProps {
+  evaluationDocs: DocumentItem[];
+  onPreview: (doc: DocumentItem) => void;
+}
+
+export function EvaluationSection({ evaluationDocs, onPreview }: EvaluationSectionProps) {
+  const { t } = useLanguage();
+
+  const rubricDoc: DocumentItem = evaluationDocs.find(
+    (d) =>
+      d.type === 'pdf' &&
+      (d.id === 'eval-rubric-standard' || d.id === 'eval-rubric-pdf' || d.evaluationDocType === 'rubric' || d.subtype === 'rubric')
+  ) || {
+    id: 'eval-rubric-standard',
+    title: '2026 ONLYONE Fair 평가 기준 상세',
+    subtitle: '공식 100점 만점 심사 척도 및 영역별 배점 기준',
+    type: 'pdf',
+    category: 'evaluation',
+    subtype: 'rubric',
+    evaluationDocType: 'rubric',
+    fileUrl: '/documents/eval/eval_rubric.pdf',
+    badgeText: '심사 평가 기준표',
+    status: 'available',
+    formatTag: 'PDF',
+    language: 'KO',
+    fileSize: '76 KB',
+    originalFileName: 'eval_rubric.pdf',
+    date: '2026.09.01',
+    description: 'ONLYONE 차별성(30점), 시장성(25점), 실행 타당성(25점), 발표 완성도(20점) 4대 기준표',
+  };
+
+  const guideDoc: DocumentItem = evaluationDocs.find(
+    (d) =>
+      d.type === 'pdf' &&
+      (d.id === 'eval-guide-manual' || d.id === 'eval-guide-pdf' || d.evaluationDocType === 'guide' || d.subtype === 'guide')
+  ) || {
+    id: 'eval-guide-manual',
+    title: '2026 ONLYONE Fair 평가 가이드',
+    subtitle: '심사위원 평가 진행 및 시스템 이용 가이드',
+    type: 'pdf',
+    category: 'evaluation',
+    subtype: 'guide',
+    evaluationDocType: 'guide',
+    fileUrl: '/documents/eval/eval_guide.pdf',
+    badgeText: '평가 가이드',
+    status: 'available',
+    formatTag: 'PDF',
+    language: 'KO',
+    fileSize: '470 KB',
+    originalFileName: 'eval_guide.pdf',
+    date: '2026.09.01',
+    description: '심사위원 로그인 방법, 조별 15분 타임테이블(8분/5분/2분) 및 점수 확정 절차',
+  };
+
+  return (
+    <div className="bg-white border border-slate-200 shadow-xs rounded-lg p-4 sm:p-5">
+      <div className="flex items-center justify-between mb-3 border-l-4 border-blue-600 pl-3">
+        <div>
+          <h2 className="text-base sm:text-lg font-bold text-slate-900">
+            {t.evaluation.sectionTitle}
+          </h2>
+          <p className="text-xs text-slate-500">
+            {t.evaluation.sectionSubtitle}
+          </p>
+        </div>
+      </div>
+
+      {/* 3 Compact Action Cards Row */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {/* 1. Evaluation System Web Link */}
+        <a
+          id="hero-eval-system-btn"
+          href={EVALUATION_SYSTEM_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded hover:bg-blue-50 hover:border-blue-300 transition-colors group cursor-pointer"
+        >
+          <div className="flex items-center gap-3">
+            <div className="bg-blue-100 p-2 rounded text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+              <CheckCircle2 className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-900">
+                {t.evaluation.systemSiteTitle}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-1">
+            <span className="text-[10px] font-mono font-bold text-blue-600 bg-blue-50 px-1.5 py-0.2 rounded border border-blue-200">
+              {t.evaluation.systemBadge}
+            </span>
+            <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600" />
+          </div>
+        </a>
+
+        {/* 2. Evaluation Criteria (평가 기준 상세) PDF Button */}
+        <div className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded hover:bg-red-50/50 hover:border-red-300 transition-colors group">
+          <div
+            onClick={() => openDocumentInNewTab(rubricDoc)}
+            className="flex items-center gap-3 flex-1 cursor-pointer min-w-0"
+            title={t.evaluation.openInNewTab}
+          >
+            <div className="bg-red-100 p-2 rounded text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
+              <FileText className="w-4 h-4" />
+            </div>
+            <div className="truncate">
+              <p className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-red-900 truncate">
+                {t.evaluation.rubricTitle}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-1 flex-shrink-0">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onPreview(rubricDoc);
+              }}
+              className="p-1 text-slate-500 hover:text-slate-800 hover:bg-white rounded cursor-pointer"
+              title={t.evaluation.preview}
+            >
+              <Eye className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                downloadDocumentPdf(rubricDoc);
+              }}
+              className="p-1 text-slate-500 hover:text-slate-800 hover:bg-white rounded cursor-pointer"
+              title={t.evaluation.download}
+            >
+              <Download className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+        {/* 3. Evaluation Guide (평가 가이드) PDF */}
+        <div className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded hover:bg-amber-50/50 hover:border-amber-300 transition-colors group">
+          <div
+            onClick={() => openDocumentInNewTab(guideDoc)}
+            className="flex items-center gap-3 flex-1 cursor-pointer min-w-0"
+            title={t.evaluation.openInNewTab}
+          >
+            <div className="bg-amber-100 p-2 rounded text-amber-700 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <div className="truncate">
+              <p className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-amber-900 truncate">
+                {t.evaluation.guideTitle}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-1 flex-shrink-0">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onPreview(guideDoc);
+              }}
+              className="p-1 text-slate-500 hover:text-slate-800 hover:bg-white rounded cursor-pointer"
+              title={t.evaluation.preview}
+            >
+              <Eye className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                downloadDocumentPdf(guideDoc);
+              }}
+              className="p-1 text-slate-500 hover:text-slate-800 hover:bg-white rounded cursor-pointer"
+              title={t.evaluation.download}
+            >
+              <Download className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
