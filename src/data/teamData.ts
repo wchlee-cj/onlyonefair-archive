@@ -1,6 +1,6 @@
 import { TeamBrochureData, DocumentItem } from '../types';
 
-export const EVALUATION_SYSTEM_LINK = 'https://onlyonefair-judge.vercel.app/';
+export const EVALUATION_SYSTEM_LINK = 'https://forms.cloud.microsoft/pages/responsepage.aspx?id=xfVq7k9oOUWetmR5OvCAJ1rCcipZtbFKriVd9YzLzL9UMUM1TlVaMFpUVjgzOERGU1hFNlNHUkMzUC4u&route=shorturl';
 
 export const TEAMS_DATA: TeamBrochureData[] = [
   {

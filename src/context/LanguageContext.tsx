@@ -59,7 +59,7 @@ export const translations: Record<Language, Translations> = {
     },
     evaluation: {
       sectionTitle: '평가 자료실',
-      sectionSubtitle: '평가 시스템 바로가기 및 가이드라인',
+      sectionSubtitle: '온라인 평가 사이트 바로가기 및 평가 기준 상세',
       systemSiteTitle: '평가 사이트 접속',
       systemBadge: 'SITE',
       rubricTitle: '평가 기준 상세',
@@ -107,7 +107,7 @@ export const translations: Record<Language, Translations> = {
     },
     evaluation: {
       sectionTitle: 'Evaluation',
-      sectionSubtitle: 'Direct link to evaluation system & guidelines',
+      sectionSubtitle: 'Direct link to online evaluation site & criteria',
       systemSiteTitle: 'Access Evaluation System',
       systemBadge: 'SITE',
       rubricTitle: 'Evaluation Criteria',
