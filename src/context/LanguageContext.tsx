@@ -55,7 +55,7 @@ export const translations: Record<Language, Translations> = {
   ko: {
     header: {
       badge: 'CJ ONLYONE FAIR',
-      title: 'ONLYONE FAIR 아이디어 발표 자료실',
+      title: '2026 H1 CJCJ ONLYONE FAIR 자료실',
     },
     evaluation: {
       sectionTitle: '평가 자료실',
@@ -103,7 +103,7 @@ export const translations: Record<Language, Translations> = {
   en: {
     header: {
       badge: 'CJ ONLYONE FAIR',
-      title: 'ONLYONE FAIR Idea Presentation Archive',
+      title: '2026 H1 CJCJ ONLYONE FAIR Archive',
     },
     evaluation: {
       sectionTitle: 'Evaluation',
@@ -178,6 +178,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   useEffect(() => {
     document.documentElement.lang = lang;
+    document.title = translations[lang].header.title;
   }, [lang]);
 
   const value = {
